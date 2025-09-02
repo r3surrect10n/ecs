@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d54531977ecb194c95e2d3aa7a5d72a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ControlPath: <Mouse>/leftButton
+  m_ControlPath: <Keyboard>/space
 --- !u!114 &628999623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,7 +340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d54531977ecb194c95e2d3aa7a5d72a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ControlPath: <Keyboard>/space
+  m_ControlPath: <Keyboard>/tab
 --- !u!114 &687102880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -696,11 +696,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -845,7 +845,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18443460e52e0a84aadec0be17fe462f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShootAction: {fileID: 1826240902}
   speed: 3
+--- !u!114 &1826240902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826240894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbc8a4d98b037c7439b4044da193ffc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 8681205908393243777, guid: 71b54c6f175ba1b418b047839e4cc5e3, type: 3}
+  shootCooldown: 1
 --- !u!1001 &7976936023198970307
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -901,5 +916,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: DogPBR
       objectReference: {fileID: 0}
+    - target: {fileID: 5983855801350341395, guid: cb1ebd4e3c10bfd4b8489f575ef6b4bf, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: b60dc9aa529b314489f628aa3b57c470, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb1ebd4e3c10bfd4b8489f575ef6b4bf, type: 3}
