@@ -69,6 +69,7 @@ public class UserInputSystem : ComponentSystem
             { 
                 inputData.Move = _moveInput; 
                 inputData.Shoot = _shootInput;
+                inputData.Rush = _rushInput;
             });
     }
 }

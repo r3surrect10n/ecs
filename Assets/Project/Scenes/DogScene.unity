@@ -846,7 +846,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShootAction: {fileID: 1826240902}
-  speed: 3
+  RushAction: {fileID: 1826240906}
+  speed: 1
 --- !u!114 &1826240902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -861,6 +862,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 8681205908393243777, guid: 71b54c6f175ba1b418b047839e4cc5e3, type: 3}
   shootCooldown: 1
+--- !u!114 &1826240906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826240894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b2299c2e0b433c4aaa369a910426fed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rushDistance: 2
+  rushCooldown: 2
 --- !u!1001 &7976936023198970307
 PrefabInstance:
   m_ObjectHideFlags: 0

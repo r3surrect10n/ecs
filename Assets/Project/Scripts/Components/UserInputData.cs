@@ -5,8 +5,9 @@ using UnityEngine;
 public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
 {
     public MonoBehaviour ShootAction;
+    public MonoBehaviour RushAction;
 
-    public float speed;
+    public float speed;    
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
@@ -21,7 +22,10 @@ public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
             dstManager.AddComponentData<ShootData>(entity, new ShootData());
         }
 
-        dstManager.AddComponentData<RushData>(entity, new RushData ());
+        if (RushAction != null && RushAction is IAbility)
+        {
+            dstManager.AddComponentData<RushData>(entity, new RushData());
+        }
     } 
 }
 
@@ -34,7 +38,7 @@ public struct InputData: IComponentData
 
 public struct MoveData: IComponentData
 {
-    public float Speed;
+    public float Speed;    
 }
 
 public struct ShootData: IComponentData
@@ -44,5 +48,5 @@ public struct ShootData: IComponentData
 
 public struct RushData: IComponentData
 {
-
+    
 }
