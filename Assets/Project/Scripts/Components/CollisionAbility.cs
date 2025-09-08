@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -5,6 +6,36 @@ using UnityEngine;
 public class CollisionAbility : MonoBehaviour, IAbility, IConvertGameObjectToEntity
 {
     public Collider Collider;
+
+    public List<MonoBehaviour> _collisionActions = new List<MonoBehaviour>();
+    public List<IAbilityTarget> collisionActionsAbilities = new List<IAbilityTarget>();
+
+    [HideInInspector] public List<Collider> collisions;
+
+    private void Start()
+    {
+        foreach (var action in collisionActionsAbilities)
+        {
+            if (action is IAbilityTarget ability)
+                collisionActionsAbilities.Add(ability);
+            else
+                Debug.LogError("Collision action must derive from IAbility");
+        }
+    }
+
+    public void Execute()
+    {
+        foreach(var action in collisionActionsAbilities)
+        {
+            action.Targets = new List<GameObject>();
+            collisions.ForEach(c =>
+            {
+                if (c != null)
+                    action.Targets.Add(c.gameObject);
+            });
+            action.Execute();
+        }
+    }    
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
@@ -48,11 +79,6 @@ public class CollisionAbility : MonoBehaviour, IAbility, IConvertGameObjectToEnt
 
         Collider.enabled = false;
     }
-
-    public void Execute()
-    {
-        Debug.Log("HIT");
-    }    
 }
 
 public struct ActorColliderData: IComponentData

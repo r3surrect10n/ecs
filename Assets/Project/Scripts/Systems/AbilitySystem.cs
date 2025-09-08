@@ -22,7 +22,7 @@ public class AbilitySystem : ComponentSystem
             (Entity entity, UserInputData inputData, ref InputData input) =>
             {
             if (input.Shoot > 0f && inputData.ShootAction != null && inputData.ShootAction is IAbility shootAbility) 
-                {
+                {                    
                     shootAbility.Execute();
                 }
             });

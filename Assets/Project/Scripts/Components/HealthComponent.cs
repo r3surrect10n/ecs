@@ -1,17 +1,6 @@
-using Unity.Entities;
 using UnityEngine;
 
-public class HealthComponent : MonoBehaviour, IConvertGameObjectToEntity
+public class HealthComponent : MonoBehaviour
 {
-    public float health;
-    
-    public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
-    {
-        dstManager.AddComponentData<HealthData>(entity, new HealthData());
-    }
-}
-
-public struct HealthData: IComponentData
-{
-    public float Health;
+    public float Health = 100f;    
 }
