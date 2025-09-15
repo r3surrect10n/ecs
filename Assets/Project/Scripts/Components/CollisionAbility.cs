@@ -1,97 +1,100 @@
 using System.Collections.Generic;
+using System;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
 public class CollisionAbility : MonoBehaviour, IAbility, IConvertGameObjectToEntity
 {
-    public Collider Collider;
+    [SerializeField] private Collider _collider;
+    [SerializeField] private MonoBehaviour[] _useAbilities;
 
-    public List<MonoBehaviour> _collisionActions = new List<MonoBehaviour>();
-    public List<IAbilityTarget> collisionActionsAbilities = new List<IAbilityTarget>();
+    private List<IAbilityTarget> _abilities = new List<IAbilityTarget>();
 
-    [HideInInspector] public List<Collider> collisions;
+    public List<Collider> Colliders = new List<Collider>();
+    public Entity Entity;
+    public EntityManager EntityManager;
 
-    private void Start()
+    private void Awake()
     {
-        foreach (var action in collisionActionsAbilities)
+        foreach (var useAbility in _useAbilities)
         {
-            if (action is IAbilityTarget ability)
-                collisionActionsAbilities.Add(ability);
-            else
-                Debug.LogError("Collision action must derive from IAbility");
+            if (useAbility is IAbilityTarget ability)
+            {
+                _abilities.Add(ability);
+                ability.Init(this);
+            }
         }
     }
 
     public void Execute()
     {
-        foreach(var action in collisionActionsAbilities)
+        foreach (var ability in _abilities)
         {
-            action.Targets = new List<GameObject>();
-            collisions.ForEach(c =>
-            {
-                if (c != null)
-                    action.Targets.Add(c.gameObject);
-            });
-            action.Execute();
+            ability.Execute();
         }
-    }    
+    }
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
-        float3 position = gameObject.transform.position;
+        Entity = entity;
+        EntityManager = dstManager;
+        float3 position = transform.position;
 
-        switch (Collider)
+        switch (_collider)
         {
-            case SphereCollider sphere:
-                sphere.ToWorldSpaceSphere(out var sphereCenter, out var sphereRadius);
-                dstManager.AddComponentData(entity, new ActorColliderData
-                {
-                    ColliderType = ColliderType.Sphere,
-                    SphereCenter = sphereCenter - position,
-                    SphereRadius = sphereRadius,
-                    InitialTakeOff = true
-                });
-                break;
-            case CapsuleCollider capsule:
-                capsule.ToWorldSpaceCapsule(out var capsuleStart, out var capsuleEnd, out var capsuleRadius);
-                dstManager.AddComponentData(entity, new ActorColliderData
-                {
-                    ColliderType = ColliderType.Capsule,
-                    CapsuleStart = capsuleStart - position,
-                    CapsuleEnd = capsuleEnd - position,
-                    CapsuleRadius = capsuleRadius,
-                    InitialTakeOff = true
-                });
-                break;
-            case BoxCollider box:
-                box.ToWorldSpaceBox(out var boxCenter, out var boxHalfExtents, out var boxOrientaion);
-                dstManager.AddComponentData(entity, new ActorColliderData
+            case BoxCollider boxCollider:
+                boxCollider.ToWorldSpaceBox(out var boxCenter, out var halfExtents, out var orientation);
+                dstManager.AddComponentData(entity, new ActorColliderData()
                 {
                     ColliderType = ColliderType.Box,
-                    BoxCenter = boxCenter - position,
-                    BoxHalfExtents = boxHalfExtents,
-                    BoxOrientation = boxOrientaion,
+                    Center = boxCenter - position,
+                    HalfExtents = halfExtents,
+                    BoxOrientation = orientation,
                     InitialTakeOff = true
                 });
                 break;
+            case CapsuleCollider capsuleCollider:
+                capsuleCollider.ToWorldSpaceCapsule(out var startPoint, out var endPoint, out var capsuleRadius);
+                dstManager.AddComponentData(entity, new ActorColliderData()
+                {
+                    ColliderType = ColliderType.Capsule,
+                    CapsuleStart = startPoint - position,
+                    CapsuleEnd = endPoint - position,
+                    Radius = capsuleRadius,
+                    InitialTakeOff = true
+                });
+                break;
+            case SphereCollider sphereCollider:
+                sphereCollider.ToWorldSpaceSphere(out var center, out var radius);
+                dstManager.AddComponentData(entity, new ActorColliderData()
+                {
+                    ColliderType = ColliderType.Sphere,
+                    Center = center - position,
+                    Radius = radius,
+                    InitialTakeOff = true
+                });
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(_collider));
         }
-
-        Collider.enabled = false;
+        _collider.enabled = false;
+    }
+    private void OnDestroy()
+    {
+        EntityManager.DestroyEntity(Entity);
     }
 }
 
-public struct ActorColliderData: IComponentData
+public struct ActorColliderData : IComponentData
 {
     public ColliderType ColliderType;
-    public float3 SphereCenter;
-    public float SphereRadius;
+    public float3 Center;
+    public float Radius;
+    public float3 HalfExtents;
     public float3 CapsuleStart;
     public float3 CapsuleEnd;
-    public float CapsuleRadius;
-    public float3 BoxCenter;
-    public float3 BoxHalfExtents;
-    public quaternion BoxOrientation;
+    public Quaternion BoxOrientation;
     public bool InitialTakeOff;
 }
 

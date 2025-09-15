@@ -18,4 +18,9 @@ public class ApplyHeal : MonoBehaviour, IAbilityTarget
             Destroy(gameObject);
         }
     }
+
+    public void Init(CollisionAbility parent)
+    {
+        throw new System.NotImplementedException();
+    }
 }

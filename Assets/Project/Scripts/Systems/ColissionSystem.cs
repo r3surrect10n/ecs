@@ -25,15 +25,15 @@ public class CollisionSystem : ComponentSystem
                 float3 position = gameObject.transform.position;
                 Quaternion rotation = gameObject.transform.rotation;                
 
-                abilityCollision.collisions?.Clear();
+                //abilityCollision._abilities?.Clear();
 
                 int size = 0;
 
                 switch (colliderData.ColliderType)
                 {
                     case ColliderType.Sphere:
-                        size = Physics.OverlapSphereNonAlloc(colliderData.SphereCenter + position,
-                            colliderData.SphereRadius, _results);
+                        size = Physics.OverlapSphereNonAlloc(colliderData.Center + position,
+                            colliderData.Radius, _results);
                         break;
                     case ColliderType.Capsule:
                         var center = ((colliderData.CapsuleStart + position) + (colliderData.CapsuleEnd + position)) / 2f;
@@ -41,11 +41,11 @@ public class CollisionSystem : ComponentSystem
                         var point2 = colliderData.CapsuleEnd + position;
                         point1 = (float3)(rotation * (point1 - center)) + center;
                         point2 = (float3)(rotation * (point2 - center)) + center;
-                        size = Physics.OverlapCapsuleNonAlloc(point1, point2, colliderData.CapsuleRadius, _results);
+                        size = Physics.OverlapCapsuleNonAlloc(point1, point2, colliderData.Radius, _results);
                         break;
                     case ColliderType.Box:
-                        size = Physics.OverlapBoxNonAlloc(colliderData.BoxCenter + position,
-                            colliderData.BoxHalfExtents, _results, colliderData.BoxOrientation * rotation);
+                        size = Physics.OverlapBoxNonAlloc(colliderData.Center + position,
+                            colliderData.HalfExtents, _results, colliderData.BoxOrientation * rotation);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -53,10 +53,10 @@ public class CollisionSystem : ComponentSystem
 
                 if (size > 0)
                 {
-                    foreach (var result in _results)
-                    {
-                        abilityCollision.collisions?.Add(result);
-                    }
+                    //foreach (var result in _results)
+                    //{
+                    //    abilityCollision.collisions?.Add(result);
+                    //}
 
                     abilityCollision.Execute();
                 }

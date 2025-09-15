@@ -3,17 +3,28 @@ using UnityEngine;
 
 public class ApplyDamage : MonoBehaviour, IAbilityTarget
 {
-    public int Damage = 10;
+    [SerializeField] protected float _damage = 10;
+
+    protected List<Collider> _collisions => _collisionAbility.Colliders;
+    private CollisionAbility _collisionAbility;
+
 
     public List<GameObject> Targets { get; set; }
 
     public void Execute()
     {         
-        foreach (var target in Targets)
+        foreach (var collision in _collisions)
         {
-            var health = target.GetComponent<HealthComponent>();
-            if (health != null)
-                health.Health -= Damage;
+            if (collision.TryGetComponent<ITakeDamage>(out var damage))
+            {
+                damage.Damage(_damage);
+                Destroy(gameObject);
+            }
         }
+    }
+
+    public void Init(CollisionAbility parent)
+    {
+        _collisionAbility = parent;
     }
 }

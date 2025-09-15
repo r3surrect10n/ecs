@@ -220,7 +220,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &585117805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,10 +233,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7219ab0962b8e6c4fb9b08c8ffa72360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Collider: {fileID: 585117807}
-  _collisionActions:
-  - {fileID: 585117811}
-  collisions: []
+  _collider: {fileID: 0}
+  _useAbilities: []
+  Colliders: []
 --- !u!114 &585117806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,7 +452,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &650642830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -466,10 +465,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7219ab0962b8e6c4fb9b08c8ffa72360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Collider: {fileID: 650642832}
-  _collisionActions:
-  - {fileID: 650642836}
-  collisions: []
+  _collider: {fileID: 0}
+  _useAbilities: []
+  Colliders: []
 --- !u!114 &650642831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -968,10 +966,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7219ab0962b8e6c4fb9b08c8ffa72360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Collider: {fileID: 1196752856}
-  _collisionActions:
-  - {fileID: 1196752862}
-  collisions: []
+  _collider: {fileID: 0}
+  _useAbilities: []
+  Colliders: []
 --- !u!114 &1196752862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -984,7 +981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bbfdbe3ced3bb444939e1cc75340b26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 10
+  _damage: 10
 --- !u!1 &1310213815
 GameObject:
   m_ObjectHideFlags: 0
@@ -1352,7 +1349,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1875889751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1365,10 +1362,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7219ab0962b8e6c4fb9b08c8ffa72360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Collider: {fileID: 1875889753}
-  _collisionActions:
-  - {fileID: 1875889757}
-  collisions: []
+  _collider: {fileID: 0}
+  _useAbilities: []
+  Colliders: []
 --- !u!114 &1875889752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1495,7 +1491,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2139205235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1508,10 +1504,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7219ab0962b8e6c4fb9b08c8ffa72360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Collider: {fileID: 2139205237}
-  _collisionActions:
-  - {fileID: 2139205241}
-  collisions: []
+  _collider: {fileID: 0}
+  _useAbilities: []
+  Colliders: []
 --- !u!114 &2139205236
 MonoBehaviour:
   m_ObjectHideFlags: 0
