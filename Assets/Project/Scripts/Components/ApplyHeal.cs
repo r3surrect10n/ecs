@@ -3,24 +3,27 @@ using UnityEngine;
 
 public class ApplyHeal : MonoBehaviour, IAbilityTarget
 {
-    public int Heal = 25;
+    public int HealPoints = 25;
+
+    protected List<Collider> _collisions => _collisionAbility.Colliders;
+    private CollisionAbility _collisionAbility;
 
     public List<GameObject> Targets { get; set; }
 
     public void Execute()
     {        
-        foreach (var target in Targets)
+        foreach (var collision in _collisions)
         {
-            var health = target.GetComponent<HealthComponent>();
-            if (health != null)
-                health.Health += Heal;
-
-            Destroy(gameObject);
+            if (collision != null && collision.TryGetComponent<ITakeHeal>(out var health))
+            {
+                health.Heal(HealPoints);
+                Destroy(gameObject);
+            }
         }
     }
 
     public void Init(CollisionAbility parent)
     {
-        throw new System.NotImplementedException();
+        _collisionAbility = parent;
     }
 }

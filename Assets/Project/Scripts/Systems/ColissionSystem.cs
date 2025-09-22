@@ -25,7 +25,7 @@ public class CollisionSystem : ComponentSystem
                 float3 position = gameObject.transform.position;
                 Quaternion rotation = gameObject.transform.rotation;                
 
-                //abilityCollision._abilities?.Clear();
+                abilityCollision.Colliders?.Clear();
 
                 int size = 0;
 
@@ -52,12 +52,12 @@ public class CollisionSystem : ComponentSystem
                 }
 
                 if (size > 0)
-                {
-                    //foreach (var result in _results)
-                    //{
-                    //    abilityCollision.collisions?.Add(result);
-                    //}
-
+                {                    
+                    foreach (var result in _results)
+                    {
+                        abilityCollision.Colliders?.Add(result);
+                    }
+                    
                     abilityCollision.Execute();
                 }
             });

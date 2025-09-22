@@ -8,15 +8,12 @@ public class ApplyDamage : MonoBehaviour, IAbilityTarget
     protected List<Collider> _collisions => _collisionAbility.Colliders;
     private CollisionAbility _collisionAbility;
 
-
-    public List<GameObject> Targets { get; set; }
-
     public void Execute()
-    {         
+    {        
         foreach (var collision in _collisions)
-        {
-            if (collision.TryGetComponent<ITakeDamage>(out var damage))
-            {
+        {           
+            if (collision != null && collision.TryGetComponent<ITakeDamage>(out var damage))
+            {                
                 damage.Damage(_damage);
                 Destroy(gameObject);
             }
